@@ -83,11 +83,5 @@ public class ChatWindow {
 		frame.pack();
 		frame.setSize(500, 600);
 		
-
-		
-		
-		
-		
-		
 	}
 }
