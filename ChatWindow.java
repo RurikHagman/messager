@@ -15,11 +15,13 @@ public class ChatWindow {
 		SwingUtilities.invokeLater(() -> createWindow());
 	}
 
+	
+	String recieverIp;
 	public DefaultListModel<String> listModel = new DefaultListModel<String>();
 	public DataOutputStream oStream;
 	
 	private void createWindow() {
-		
+				
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -77,9 +79,7 @@ public class ChatWindow {
 
 		
 		frame.setVisible(true);
-
 		pane.add(listPane);
-		
 		frame.pack();
 		frame.setSize(500, 600);
 		

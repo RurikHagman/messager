@@ -6,11 +6,19 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import javax.swing.JOptionPane;
+
 public class SenderReceiver {
 	
 	
     public static void main(String[] args) {
     	
+		String recieverIp = JOptionPane.showInputDialog(null, "connect to ip:");
+    	
+		if (recieverIp == null) {
+			recieverIp = "localhost";
+		} 
+		
     	ChatWindow window = new ChatWindow();
     	
         new Thread(() -> {
@@ -31,7 +39,7 @@ public class SenderReceiver {
             }
         }).start();
 
-        try (Socket socket = new Socket("localhost", 12345)) {
+        try (Socket socket = new Socket(recieverIp, 12345)) {
             DataOutputStream outputStream = new DataOutputStream(socket.getOutputStream());
             window.oStream = outputStream;
             while (true) {
