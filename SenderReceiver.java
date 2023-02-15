@@ -13,7 +13,7 @@ public class SenderReceiver {
 	
     public static void main(String[] args) {
     	
-		String recieverIp = JOptionPane.showInputDialog(null, "connect to ip:");
+		String recieverIp = JOptionPane.showInputDialog(null, "connect to ip:"); // 192.168.0.101
     	
 		if (recieverIp == null) {
 			recieverIp = "localhost";
@@ -29,6 +29,8 @@ public class SenderReceiver {
                         while (true) {
                             String message = inputStream.readUTF();
                             window.listModel.addElement("recieved: " + message);
+            				window.setColor(window.jlist);
+
                         }
                     } catch (IOException e) {
                         e.printStackTrace();

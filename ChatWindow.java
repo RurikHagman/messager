@@ -1,6 +1,8 @@
 package message;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +21,24 @@ public class ChatWindow {
 	String recieverIp;
 	public DefaultListModel<String> listModel = new DefaultListModel<String>();
 	public DataOutputStream oStream;
+	public JList<DefaultListModel> jlist = new JList(listModel);
+
+	
+	public void setColor(JList<DefaultListModel> list) {
+		
+		list.setCellRenderer(new DefaultListCellRenderer() {
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                if (value.toString().startsWith("Du")) {
+                    c.setForeground(Color.GREEN);
+                } else {
+                    c.setForeground(Color.RED);
+                } 
+                return c;
+            }
+        });
+	}
+	
 	
 	private void createWindow() {
 				
@@ -26,8 +46,6 @@ public class ChatWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		Container pane = frame.getContentPane();
-
-		JList<DefaultListModel> jlist = new JList(listModel);
 		
 		JScrollPane listPane = new JScrollPane(jlist);
 		
@@ -41,7 +59,8 @@ public class ChatWindow {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String sentMessage = textField.getText();
-				listModel.addElement("sent: " + sentMessage);
+				listModel.addElement("Du: " + sentMessage);
+				setColor(jlist);
 				textField.setText("");
 				try {
 					oStream.writeUTF(sentMessage);
@@ -67,16 +86,11 @@ public class ChatWindow {
 		
 		panel.add(textField);
 		panel.add(sendButton);
-		
-		
-		
-		
+	
 		pane.add(listPane);
 		
 		pane.add(panel, BorderLayout.SOUTH);
 		
-		
-
 		
 		frame.setVisible(true);
 		pane.add(listPane);
